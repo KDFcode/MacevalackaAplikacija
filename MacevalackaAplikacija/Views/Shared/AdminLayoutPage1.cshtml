@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> @ViewBag.Title</title>
+    @Styles.Render("~/adminlayout/css")
+</head>
+<body style="text-align:center; color:aquamarine">
+    <header> <h1 style="text-align:center; color:ghostwhite"> admin stranica</h1></header>
+
+    <nav>
+        <h3> menu</h3>
+        @Html.ActionLink("Login", "Login")<br />
+        @Html.ActionLink("Add user", "AddUser")<br />
+        @Html.ActionLink("Delete user", "DeleteUser")<br />
+    </nav>
+
+
+    <div class="tab-content">
+        @* ^^^^^^^^^^^ sta ovde treba koja  vrsta sadrzaja tj content-a?*@
+        @RenderBody()
+
+    </div>
+
+    <footer>
+        <h4> ovde je footer </h4>
+    </footer>
+</body>

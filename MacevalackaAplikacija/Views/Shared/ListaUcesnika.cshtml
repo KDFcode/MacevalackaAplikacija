@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MacevalackaAplikacija.Models.UcesnickiNalogBO>
+
+<table class="table">
+    <tr>
+        <th>
+            Ucesnik
+        </th>
+        <th>
+            Ime i prezime
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Disciplina.DiscNaziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.faza.NazivFazeTakmicenja)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ucesnikID)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ImePrezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uloga)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klub)
+            </td>
+        </tr>
+    }
+
+</table>

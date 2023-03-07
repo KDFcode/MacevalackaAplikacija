@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Moj projekat</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+   @* Vidi ovde da mozda stavis neki drugi css posle?
+       pa npr ubacis u content folder u css neke druge opcije mozda
+       
+       ili da prosto posto vec preko bundle config opcije on referencira site.css fajl,nadjes to i onda u tome ubacis css detalje?
+   
+       samo dodaj nesto malo da se vidi da umem da menjam,sitne male izmene koda css-a
+
+       i kreni da peglas opet svu dokumentaciju
+       *@
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("PPP projekat", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Ucesnici", "IndexUce", "Ucesnicki")</li>
+                    <li>@Html.ActionLink("Discipline", "IndexDisc", "Disciplina")</li>
+                    <li>@Html.ActionLink("Faze", "IndexFaza", "Faza")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Nazad na start", "Index", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Moj PPP projekat </p>
+            <p>&copy; Aleksandar Ristic,br. indeksa 556-19 </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿
+@model IEnumerable<MacevalackaAplikacija.Models.FazaBO>
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index Faza</h2>
+<br />
+<p>
+    @Html.ActionLink("Unos nove faze", "CreateFaza", "Faza")
+</p>
+<br />
+<p>
+    @Html.ActionLink("Pregled ucesnika", "IndexUce", "Ucesnicki")
+</p>
+<br />
+<p>
+    @Html.ActionLink("Pregled disciplina", "IndexDisc", "Disciplina")
+</p>
+<br />
+<p> @Html.ActionLink("Nazad na start", "Index", "Home")</p>
+<br />
+<div>
+
+    @foreach (var faza in Model)
+    {
+
+        <a class="list-group-item" onclick='OnListItemClick(this, @Html.Raw(Json.Encode(faza)));'>
+            <h6>
+
+                @Html.DisplayFor(model => faza.NazivFazeTakmicenja)
+            </h6>
+        </a>
+
+
+    }
+
+</div>
+<div class="col-md-6" id="detaljiFaze" style="visibility: hidden">
+    <label class="control-label">Detalji Faze:</label>
+    <p id="detaljiFazeText"></p>
+    <input id="editButton" type="button" class="btn" value="Azuriraj" />
+    <input id="deleteButton" type="button" class="btn" value="Obrisi" />
+</div>
+
+<script>
+    function OnListItemClick(htmlItem, faza) {
+        $('a.list-group-item.active').removeClass('active');
+        $(htmlItem).addClass('active');
+        document.getElementById('detaljiFaze').style.visibility = "visible";
+        document.getElementById("detaljiFazeText").innerHTML =
+            "ID broj faze: " + faza.FazaTakmicenjaID + "<br>Naziv: " + faza.NazivFazeTakmicenja;
+        document.getElementById('editButton').onclick = function () {
+            window.location.href = "../Faza/EditFaza/" + faza.FazaTakmicenjaID;
+        }
+        document.getElementById('deleteButton').onclick = function () {
+            window.location.href = "../Faza/DeleteFaza/" + faza.FazaTakmicenjaID;
+        }
+    }
+</script>

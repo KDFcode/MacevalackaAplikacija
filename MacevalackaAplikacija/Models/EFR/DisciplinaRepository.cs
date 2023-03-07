@@ -1,0 +1,159 @@
+﻿using MacevalackaAplikacija.Models.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace MacevalackaAplikacija.Models.EFR
+{
+    public class DisciplinaRepository : IDisciplinaRepository
+    {
+
+
+        private turnirskoNova2Entities turnirskiEntities = new turnirskoNova2Entities();
+
+
+
+        private DisciplinaBO mapiram(Disciplina disciplina)
+        {
+            DisciplinaBO disciplinaBO = new DisciplinaBO { DiscID = disciplina.DisciplinaID, DiscNaziv = disciplina.NazivDiscip };
+            return disciplinaBO;
+        }//mapiram()
+
+
+        private FazaBO mapiramFaze(FazaTakmicenja faza)
+        {
+            FazaBO fazaBO = new FazaBO { FazaTakmicenjaID = faza.FazaTakmicenjaID, NazivFazeTakmicenja = faza.NazivFaze };
+            return fazaBO;
+        }//mapiram()
+
+        private UcesnickiNalogBO mapiramUcesnike(UcesnickiNalog ucesnik)
+        {
+            UcesnickiNalogBO ucesnickiNalogBO = new UcesnickiNalogBO { ucesnikID = ucesnik.UcesnickiNalogID, ImePrezime = ucesnik.ImePrezime, Klub = ucesnik.Klub, Uloga = ucesnik.Uloga, Disciplina = mapiram(ucesnik.Disciplina), faza = mapiramFaze(ucesnik.FazaTakmicenja) };
+            return ucesnickiNalogBO;
+
+        }//mapiramUcesnika() 
+
+        public IEnumerable<DisciplinaBO> GetAll()
+        {
+            List<DisciplinaBO> discipline = new List<DisciplinaBO>();
+            foreach (Disciplina disciplina in turnirskiEntities.Disciplina)
+            {
+                discipline.Add(mapiram(disciplina));
+            }
+            return discipline;
+        }//GetAll()
+        public void Add(DisciplinaBO disciplinaNovaBo)
+        {
+            Disciplina disciplinaNova = new Disciplina();
+            disciplinaNova.NazivDiscip = disciplinaNovaBo.DiscNaziv;
+            
+            turnirskiEntities.Disciplina.Add(disciplinaNova);
+            turnirskiEntities.SaveChanges();
+        }//Add()
+
+        public DisciplinaBO DajPoID(int disciplinaID)
+        {
+
+            DisciplinaBO disciplinaTrazena = new DisciplinaBO();
+            foreach (Disciplina disciplina in turnirskiEntities.Disciplina.Where(t => t.DisciplinaID == disciplinaID))
+            {
+
+                disciplinaTrazena.DiscNaziv = disciplina.NazivDiscip;
+                disciplinaTrazena.DiscID = disciplina.DisciplinaID;
+
+            }
+            return disciplinaTrazena;
+        }//DajPoID()
+
+
+
+
+        public void Delete(DisciplinaBO disciplinaBo)
+        {
+            List<UcesnickiNalogBO> listaUcesnika = new List<UcesnickiNalogBO>();
+
+
+
+            foreach (UcesnickiNalog ucesnik in turnirskiEntities.UcesnickiNalog)
+            {
+                listaUcesnika.Add(mapiramUcesnike(ucesnik));
+            }
+
+            foreach (UcesnickiNalogBO ucesniK in listaUcesnika)
+            {
+                if (ucesniK.Disciplina.DiscID == disciplinaBo.DiscID)
+                {
+                    UcesnickiNalog ucesnikZaBrisanje = turnirskiEntities.UcesnickiNalog.FirstOrDefault(t => t.UcesnickiNalogID == ucesniK.ucesnikID);
+                    if (ucesnikZaBrisanje == null) return;
+
+                    turnirskiEntities.UcesnickiNalog.Remove(ucesnikZaBrisanje);
+                    try
+                    {
+                        turnirskiEntities.SaveChanges();
+
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Ucesnik nije uspesno obrisana: " + e);
+
+                    }
+                }
+            }
+
+
+            Disciplina disciplinaZaBrisanje = new Disciplina();
+            disciplinaZaBrisanje = turnirskiEntities.Disciplina.FirstOrDefault(t => t.DisciplinaID == disciplinaBo.DiscID);
+            if (disciplinaZaBrisanje == null) return;
+
+            turnirskiEntities.Disciplina.Remove(disciplinaZaBrisanje);
+
+            try
+            {
+                turnirskiEntities.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Disciplina nije uspesno obrisana: " + e);
+
+            }
+
+        }//Delete()
+        
+
+
+
+        public void Update(DisciplinaBO disciplinaBO)
+        {
+            Disciplina disciplinaZaIzmenu = turnirskiEntities.Disciplina.FirstOrDefault(t => t.DisciplinaID == disciplinaBO.DiscID);
+            if (disciplinaZaIzmenu == null) return; 
+            disciplinaZaIzmenu.NazivDiscip = disciplinaBO.DiscNaziv;
+
+            try
+            {
+                turnirskiEntities.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Neuspesan update discipline: " + e);
+            }
+
+        }//Update()
+
+
+
+
+
+
+        public IEnumerable<UcesnickiNalogBO> GetAllUcesnici()
+        {
+            List<UcesnickiNalogBO> ucesnici = new List<UcesnickiNalogBO>();
+            foreach (UcesnickiNalog ucesnik in turnirskiEntities.UcesnickiNalog)
+            {
+                ucesnici.Add(mapiramUcesnike(ucesnik));
+            }
+            return ucesnici;
+        }//GetAll()
+    }
+}

@@ -1,0 +1,52 @@
+﻿@model MacevalackaAplikacija.Models.DisciplinaBO
+@using MacevalackaAplikacija.Controllers
+
+
+
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Da li ste sigurni da zelite da ovo brisete?</h3>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="control-label">ID discipline</label>
+
+                    @Html.DisplayFor(model => model.DiscID)
+                </div>
+                <div class="col-md-3">
+                    <label>Naziv:</label>
+                    @Html.EditorFor(model => model.DiscNaziv, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-3">
+
+                   
+                    @Html.HiddenFor(model => model.DiscID)
+
+                  
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Obrisi" class="btn btn-default" />
+            </div>
+
+        </div>
+    </div>
+    <br />
+    <div>
+        @Html.ActionLink("Vrati se na listu", "IndexDisc")
+    </div>
+}
+<br />

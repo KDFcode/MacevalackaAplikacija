@@ -1,0 +1,48 @@
+﻿
+
+
+@model MacevalackaAplikacija.Models.FazaBO
+@using MacevalackaAplikacija.Controllers
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<h2>Napravi fazu</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Dodavanje disciplina</h4>
+        <hr />
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Faza</label>
+
+            <div class="col-md-3">
+                <label>Naziv:</label>
+                @Html.EditorFor(model => model.NazivFazeTakmicenja, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Sacuvaj" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Vrati se na listu", "IndexFaza")
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+}

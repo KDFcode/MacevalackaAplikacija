@@ -1,0 +1,79 @@
+﻿
+@model IEnumerable<MacevalackaAplikacija.Models.UcesnickiNalogBO>
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index Ucesnik</h2>
+<br />
+<p>
+    @Html.ActionLink("Unos novog ucesnika", "CreateUce", "Ucesnicki")
+</p>
+<br />
+<p>
+    @Html.ActionLink("Pregled disciplina", "IndexDisc", "Disciplina")
+</p>
+<br />
+
+<p>
+    @Html.ActionLink("Pregled faza", "IndexFaza", "Faza")
+</p>
+<br />
+
+<p> @Html.ActionLink("Nazad na start", "Index", "Home")</p><br />
+<div>
+
+    @foreach (var ucesnik in Model)
+    {
+
+        <a class="list-group-item" onclick='OnListItemClick(this, @Html.Raw(Json.Encode(ucesnik)));'>
+            <div>
+                <table>
+
+                    <tr>
+                        @Html.DisplayFor(model => ucesnik.ImePrezime)
+                    </tr>
+                    
+                    <th>
+                        @Html.ActionLink("Delete", "DeleteUce", new { id = ucesnik.ucesnikID })
+                        <br />
+                        @Html.ActionLink("Details", "Details", new { id = ucesnik.ucesnikID })
+                        <br />
+                        @Html.ActionLink("Edit", "EditUce", new { id = ucesnik.ucesnikID })
+                    </th>
+                </table>
+               @* sad kako je ovo poplavi celo za jednog ucesnika nakon sto se klikne i vrati na to????
+                   a morao sam da promenim jer kad sam bio pokretao odjednom mi kaze da mu je problem
+                   sto je <td> unutar <div> sto mi ranije nije pravilo problem??
+                   
+                   kako to lepse?
+                   *@
+                
+            </div>
+        </a>
+        <br />
+
+
+    }
+   
+</div>
+
+
+<script>
+    function OnListItemClick(htmlItem, ucesnik) {
+        $('a.list-group-item.active').removeClass('active');
+        $(htmlItem).addClass('active');
+        document.getElementById('detaljiUcesnika').style.visibility = "visible";
+        document.getElementById("detaljiUcesnikaText").innerHTML =
+            "Klub ucesnika: " + ucesnik.Klub + "<br>Turnirska uloga: " + ucesnik.Uloga;
+        document.getElementById('editButton').onclick = function () {
+            window.location.href = "../Ucesnicki/EditUce/" + ucesnik.ucesnikID;
+        }
+        document.getElementById('deleteButton').onclick = function () {
+            window.location.href = "../Ucesnicki/DeleteUce/" + ucesnik.ucesnikID;
+        }
+    }
+</script>

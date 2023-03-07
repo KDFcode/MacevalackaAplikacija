@@ -1,0 +1,139 @@
+﻿
+@model MacevalackaAplikacija.Models.UcesnickiNalogBO
+
+@using MacevalackaAplikacija.Controllers
+
+
+
+
+@{
+    ViewBag.Title = "Napravi ucesnika";
+}
+<h4>Dodavanje ucesnika</h4>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label ">Ucesnik</label>
+
+            <div>
+                <br />
+                <label>Ime i Prezime:</label>
+                @Html.EditorFor(model => model.ImePrezime, new { htmlAttributes = new { @class = "form-control" } })
+                <br />
+                <label>Klub:</label>
+                @Html.EditorFor(model => model.Klub, new { htmlAttributes = new { @class = "form-control" } })
+                <br />
+                <label>Turnirska uloga:</label>
+                @Html.EditorFor(model => model.Uloga, new { htmlAttributes = new { @class = "form-control" } })
+                <br />
+                <label>Disciplina:</label>
+
+                @Html.DropDownListFor(model => model.Disciplina.DiscID, new SelectList(ViewBag.Discipline, "DiscID", "DiscNaziv"), "Selektuj disciplinu..", new { @class = "form-control" })
+                @*@Html.DropDownList(model => model.Disciplina.DiscNaziv, new SelectList(ViewBag.Discipline, "DiscID", "DiscNaziv"), "Selektuj disciplinu", new { @class = "form-control" })*@
+
+
+                <br />
+                <label>Faza Takmicenja:</label>
+
+                @Html.DropDownListFor(model => model.faza.FazaTakmicenjaID, new SelectList(ViewBag.Faze, "FazaTakmicenjaID", "NazivFazeTakmicenja"), "Selektuj disciplinu..", new { @class = "form-control" })
+
+
+                @*@Html.DropDownListFor(model => model.faza.NazivFazeTakmicenja, new SelectList(ViewBag.Faze, "FazaTakmicenjaID", "NazivFazeTakmicenja"), "Selektuj disciplinu", new { @class = "form-control" })*@
+
+
+                <br />
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Sacuvaj" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Vrati se na listu", "IndexUce")
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+}
+
+@*gde najbolje uciti jos i vise o ajaxu?*@
+
+@* i onda ovde odradi partial view   
+    a svaki partial view MORA da bude u shared folderu da bi mogao da radi lepo
+    (lista ispita se zove u primeru s faksa)
+    
+    cisto ne zaboraviti kad ga kreiramo tamo da u toku kreiranja ne zaboravimo da odaberemo partial view opciju
+    
+    mi smo koristili List,to bi moglo ovde takodje lepo,odaberes odgovarajuce BO(npr ucesnik ovde,mi smo tamo radili s 
+    tipa predmetBO)
+    
+    na 67 screenshotu ima jos detalja oko pozivanja samog partial view-a u kontroleru
+    *@
+@*
+    <div id="Ispiti">
+
+        @{Html.RenderAction("GetIspiteByPredmet", "PrijavaIspita", new { id = 0 });}
+
+    </div>
+
+    <script type="text/javascript">
+
+        function OnSelectedPredmet(predmet) {
+
+            var idPredmeta = predmet; //on proveri prvo ovo
+            if(idPredmeta === "")
+            {
+                idPredmeta = 0;
+            }
+            $.ajax({
+                url: '@Url.Action("GetIspiteByPredmet", "PrijavaIspita")',
+                data: { id: idPredmeta }, //pa prosledi ovo gore u ovaj renderaction  sto je po screenshotu 66,
+    //sustinski iz prijavaispita controllera,u getispitebypredmet
+    // tj. te dve id vrednosti moraju da se poklapaju(sam id je iz dropdown liste)
+                success:   function(result) {
+                    $('#Ispiti').html(result);
+                }
+            });
+        }
+    </script>
+*@
+@* to resi lepo za narednu priliku , proprati kako sta s cime spojiti u smislu controlera i svega toga*@
+
+
+@*a to se sve koristi id koji se pokupi iz dropdown liste
+    ti to mozes negde za npr discipline da odradis prikaz ucesnika po disciplini?
+    isto i za faze?*@
+
+@*
+    <div class="row">
+
+        <div class="col-md-3" id="smerovi">
+            <label class="control-label">Predmeti</label>
+            <div>
+                @Html.DropDownList(
+                    "Predmeti",
+                    new SelectList(@ViewBag.Predmeti, "Id", "Naziv"),
+                    "Selektuj predmet",
+                    new { @class = "form-control",
+                        @onchange = "OnSelectedPredmet(this.value)" })
+            </div>
+        </div>
+    </div>
+    <br>*@

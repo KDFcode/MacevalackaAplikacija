@@ -1,0 +1,53 @@
+﻿
+@model MacevalackaAplikacija.Models.UcesnickiNalogBO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+
+<h2>Detalji Ucesnika</h2>
+
+<p>
+    @Html.ActionLink("Vrati se na pregled ucesnika", "IndexUce", "Ucesnicki")
+</p>
+
+<p> @Html.ActionLink("Nazad na start", "Index", "Home")</p>
+<br />
+
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div>
+                    <label class="control-label">ID ucesnika</label>
+                    @Html.DisplayFor(model => model.ucesnikID)
+                    <br />
+                    <label class="control-label">Ime i prezime</label>
+                    @Html.DisplayFor(model => model.ImePrezime)
+                    <br />
+                    <label class="control-label">Klub</label>
+                    @Html.DisplayFor(model => model.Klub)
+                    <br />
+                    <label class="control-label">Uloga</label>
+                    @Html.DisplayFor(model => model.Uloga)
+                    <br />
+                    <label class="control-label">Faza takmicenja</label>
+                    @Html.DisplayFor(model => model.faza)  
+                    <br />
+                    <label class="control-label">Disciplina</label>
+                    @Html.DisplayFor(model => model.Disciplina)
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+}

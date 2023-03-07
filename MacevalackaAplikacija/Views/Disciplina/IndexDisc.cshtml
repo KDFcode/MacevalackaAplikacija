@@ -1,0 +1,118 @@
+﻿
+@model IEnumerable<MacevalackaAplikacija.Models.DisciplinaBO>
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index Disciplina</h2>
+<br />
+<p>
+    @Html.ActionLink("Unos nove discipline", "CreateDisc", "Disciplina")
+</p>
+<br />
+<p>
+    @Html.ActionLink("Pregled ucesnika", "IndexUce", "Ucesnicki")
+</p>
+<br />
+<p>
+    @Html.ActionLink("Pregled faza", "IndexFaza", "Faza")
+</p>
+<br />
+<p> @Html.ActionLink("Nazad na start", "Index", "Home")</p>
+<br />
+
+
+
+@*<label>Odabrati ispis ucesnika po kojoj disciplini</label>
+
+@Html.DropDownListFor(model => model., new SelectList(ViewBag.Discipline, "DiscID", "DiscNaziv"), "Selektuj disciplinu..", new { @class = "form-control" })
+*@
+
+
+<div>
+
+    @foreach (var disciplina in Model)
+    {
+
+        <a class="list-group-item" onclick='OnListItemClick(this, @Html.Raw(Json.Encode(disciplina)));'>
+            <h6>
+
+                @Html.DisplayFor(model => disciplina.DiscNaziv)
+            </h6>
+        </a>
+
+
+    }
+
+</div>
+<div class="col-md-6" id="detaljiDiscipline" style="visibility: hidden">
+    <label class="control-label">Detalji Discipline:</label>
+    <p id="detaljiDisciplineText"></p>
+    <input id="editButton" type="button" class="btn" value="Azuriraj" />
+    <input id="deleteButton" type="button" class="btn" value="Obrisi" />
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-3" id="smerovi">
+        <label class="control-label">Predmeti</label>
+        <div>
+            @Html.DropDownList(
+                "Discipline",
+                new SelectList(@ViewBag.Discipline, "DiscID", "DiscNaziv"),
+                "Selektuj disciplinu",
+                new
+                     {
+                         @class = "form-control",
+                    @onchange = "OnSelectedDisciplina(this.value)"
+                     })
+        </div>
+    </div>
+</div>
+
+<div id="Discipline">
+
+    @{Html.RenderAction("DajUcesnikePoDisciplini", "Disciplina", new { id = 0 });}
+
+</div>
+
+
+
+<script>
+    function OnListItemClick(htmlItem, disciplina) {
+        $('a.list-group-item.active').removeClass('active');
+        $(htmlItem).addClass('active');
+        document.getElementById('detaljiDiscipline').style.visibility = "visible";
+        document.getElementById("detaljiDisciplineText").innerHTML =
+            "ID broj discipline: " + disciplina.DiscID + "<br>Naziv: " + disciplina.DiscNaziv;
+        document.getElementById('editButton').onclick = function () {
+            window.location.href = "../Disciplina/EditDisc/" + disciplina.DiscID;
+        }
+        document.getElementById('deleteButton').onclick = function () {
+            window.location.href = "../Disciplina/DeleteDisc/" + disciplina.DiscID;
+        }
+    }
+
+
+
+    function OnSelectedDisciplina(disciplina) {
+
+        var idDiscipline = disciplina;
+        if (idDiscipline === "")
+        {
+            idDiscipline = 0;
+        }
+        $.ajax({
+            url: '@Url.Action("DajUcesnikePoDisciplini", "ListaUcesnika")',
+            data: { id: idDiscipline },
+            success:   function(result) {
+                $('#Discipline').html(result);
+            }
+        });
+    }
+</script>
