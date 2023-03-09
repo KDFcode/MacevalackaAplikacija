@@ -28,7 +28,7 @@ namespace MacevalackaAplikacija.Controllers
 
             @ViewBag.Discipline = disciplinaRepository.GetAll();
             return View(discipline);
-            //kako ovo iskombinovati inace?
+            
         }//IndexDisc()
 
 
@@ -118,7 +118,5 @@ namespace MacevalackaAplikacija.Controllers
 
         }//DajUcesnikePoDisciplini()
 
-        //ovo se sustinski nigde ne poziva? kako to lepo da ubacim negde i gde tacno da  moze da se 
-        //kako treba pozove partial view(u shared folderu je)
     }
 }
