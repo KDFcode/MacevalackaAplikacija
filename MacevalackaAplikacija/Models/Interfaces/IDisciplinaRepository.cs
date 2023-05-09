@@ -14,13 +14,16 @@ namespace MacevalackaAplikacija.Models.Interfaces
 
 
         IEnumerable<UcesnickiNalogBO> GetAllUcesnici();
-        
+         IEnumerable<UcesnickiNalogBO> DajSveUcesnikePoDiscID(int disciplinaID);
+        IEnumerable<UcesnickiNalogBO> DajSveUcesnikePoDiscID2(int disciplinaID);
 
         void Delete(DisciplinaBO disciplinaBo);
         void Add(DisciplinaBO disciplina);
 
-
+         IEnumerable<UcesnickiNalogBO> GetAllUceWithBiggestDisc();
 
         void Update(DisciplinaBO disciplinaBO);
+
+
     }
 }

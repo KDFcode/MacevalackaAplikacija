@@ -34,6 +34,7 @@ namespace MacevalackaAplikacija.Controllers
 
 
         [Authorize(Roles = "organizator")]
+
         public ActionResult DeleteUce(int id) //httpget
         {
             UcesnickiNalogBO ucesnici;
@@ -54,17 +55,17 @@ namespace MacevalackaAplikacija.Controllers
 
 
         //[Authorize(Roles = "Administrator")]
-        [Authorize(Roles = "organizator")]
+        [Authorize(Roles = "organizator,menadzer")]
         public ActionResult CreateUce()
         {
             @ViewBag.Discipline = ucesnickiRepository.GetAllDiscipline();
             @ViewBag.Faze = ucesnickiRepository.GetAllFaze();
-            @ViewBag.Ucesnici = ucesnickiRepository.GetAll(); //razmisli da li da ostavis bez ovoga?
+            @ViewBag.Ucesnici = ucesnickiRepository.GetAll(); 
             return View();
         }//CreateUce()
 
         [HttpPost]
-        [Authorize(Roles = "organizator")]
+        [Authorize(Roles = "organizator,menadzer")]
         public ActionResult CreateUce(UcesnickiNalogBO ucesnikBo)
         {
             ucesnickiRepository.Add(ucesnikBo);
@@ -74,7 +75,7 @@ namespace MacevalackaAplikacija.Controllers
 
 
         //[Authorize(Roles = "Administrator")]
-        [Authorize(Roles = "organizator")]
+        [Authorize(Roles = "organizator,menadzer")]
         public ActionResult EditUce(int id) //httpget
         {
             UcesnickiNalogBO ucesnik;
@@ -88,7 +89,7 @@ namespace MacevalackaAplikacija.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "organizator")]
+        [Authorize(Roles = "organizator,menadzer")]
         public ActionResult EditUce(UcesnickiNalogBO ucesnikBo)
         {
            

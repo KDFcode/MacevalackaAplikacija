@@ -18,6 +18,7 @@ namespace MacevalackaAplikacija.Controllers
         {
             disciplinaRepository = new DisciplinaRepository();
         }
+        private turnirskoNova2Entities turnirskiEntities = new turnirskoNova2Entities();
 
 
         public ActionResult IndexDisc()
@@ -73,6 +74,15 @@ namespace MacevalackaAplikacija.Controllers
             return RedirectToAction("IndexDisc");
         }//CreateDisc()
 
+
+        public ActionResult DropdownPogled()
+        {
+           @ViewBag.Discipline = disciplinaRepository.GetAll();
+
+           // return View();
+            return View("DropdownDiscUce");
+        }//DropdownPogled()
+
         [Authorize(Roles = "organizator")]
 
         public ActionResult EditDisc(int id)
@@ -103,22 +113,53 @@ namespace MacevalackaAplikacija.Controllers
 
 
        
-
-
         public ActionResult DajUcesnikePoDisciplini(int id)
         {
 
             if (id == 0)
             {
-                return PartialView("ListaUcesnika", disciplinaRepository.GetAllUcesnici());
-              
+                @ViewBag.Discipline = disciplinaRepository.GetAll();
+                return PartialView("PartialPogled", disciplinaRepository.GetAllUcesnici());
+
             }
 
-            return PartialView("ListaUcesnika", disciplinaRepository.DajPoID(id));
+            List<UcesnickiNalogBO> lista = new List<UcesnickiNalogBO>();
+
+            foreach(UcesnickiNalogBO u in disciplinaRepository.DajSveUcesnikePoDiscID(id))
+            {
+                lista.Add(u);
+            }
+          
+            @ViewBag.Discipline = disciplinaRepository.GetAll();
+            int v = 5;
+
+          
+
+            return PartialView("PartialPogled", lista);
+            
+
 
         }//DajUcesnikePoDisciplini()
 
-        //ovo se sustinski nigde ne poziva? kako to lepo da ubacim negde i gde tacno da  moze da se 
-        //kako treba pozove partial view(u shared folderu je)
+        
+
+
+        //ovo resi lepo pa na dalje ko po primeru
+        public ActionResult dajListuNajveceDiscipline()
+        {
+            //uzmi ovo i pogledaj drugi put detaljnije do kraja
+
+            return PartialView("ListaUcesnikaNajveceDiscipline", disciplinaRepository.GetAllUceWithBiggestDisc());
+
+        }
+
+
+
+
+
+
+
+
+
     }
 }

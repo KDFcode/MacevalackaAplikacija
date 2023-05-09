@@ -115,18 +115,14 @@ namespace MacevalackaAplikacija.Models.EFR
 
 
 
-            Disciplina disciplina = new Disciplina
-            {
-                DisciplinaID = ucesnikZaIzmenuBo.Disciplina.DiscID,
-                NazivDiscip = ucesnikZaIzmenuBo.Disciplina.DiscNaziv
-            };
+
+            Disciplina disciplina = turnirskiEntities.Disciplina.FirstOrDefault(t => t.DisciplinaID == ucesnikZaIzmenuBo.Disciplina.DiscID);
             ucesnikZaIzmenu.Disciplina = disciplina;
-            FazaTakmicenja faza = new FazaTakmicenja
-            {
-                FazaTakmicenjaID = ucesnikZaIzmenuBo.faza.FazaTakmicenjaID,
-                NazivFaze = ucesnikZaIzmenuBo.faza.NazivFazeTakmicenja
-            };
+
+
+            FazaTakmicenja faza = turnirskiEntities.FazaTakmicenja.FirstOrDefault(t => t.FazaTakmicenjaID == ucesnikZaIzmenuBo.faza.FazaTakmicenjaID);
             ucesnikZaIzmenu.FazaTakmicenja = faza;
+
 
             try
             {

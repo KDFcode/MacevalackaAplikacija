@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MacevalackaAplikacija.Models.DisciplinaBO>
+
+
+@{
+    ViewBag.Title = "TestPogled";
+}
+
+<h2>TestPogled</h2>
+
+<br />
+<p> @Html.ActionLink("prikazi mi listu ucesnika najvece discipline", "ListaUcesnikaNajveceDiscipline", "Shared") </p>
+<br />
+
+@{Html.RenderAction("dajListuNajveceDiscipline", "Disciplina", new { id = 0 });}
+
+
+<script>
+
+
+    @*//ne ovako nego OnClickedActionLink?
+    function OnSelectedDisciplina(disciplina) {
+
+        var idDiscipline = disciplina;
+        if (idDiscipline === "")
+        {
+            idDiscipline = 0;
+        }
+        $.ajax({
+            url: '@Url.Action("dajListuNajveceDiscipline", "Disciplina")',
+            data: { id: idDiscipline },
+            success:   function(result) {
+                $('#Discipline').html(result);
+            }
+        });
+    }*@
+</script>

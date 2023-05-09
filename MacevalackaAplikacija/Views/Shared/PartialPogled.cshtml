@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MacevalackaAplikacija.Models.UcesnickiNalogBO>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ucesnikID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImePrezime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Uloga)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Klub)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ucesnikID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImePrezime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Uloga)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Klub)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

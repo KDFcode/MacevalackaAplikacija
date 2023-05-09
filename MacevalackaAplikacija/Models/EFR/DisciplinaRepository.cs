@@ -64,10 +64,113 @@ namespace MacevalackaAplikacija.Models.EFR
 
             }
             return disciplinaTrazena;
+            List<UcesnickiNalogBO> trazeniUcesnici = new List<UcesnickiNalogBO>();
+            UcesnickiNalogBO trazeniUcesnik = new UcesnickiNalogBO();
+            foreach (UcesnickiNalog ucesnik in turnirskiEntities.UcesnickiNalog.Where(t => t.DisciplinaID == disciplinaID))
+            {
+                trazeniUcesnik.ucesnikID = ucesnik.UcesnickiNalogID;
+                trazeniUcesnik.ImePrezime = ucesnik.ImePrezime;
+                trazeniUcesnik.faza.NazivFazeTakmicenja = ucesnik.FazaTakmicenja.NazivFaze;
+                trazeniUcesnik.Disciplina.DiscNaziv = ucesnik.Disciplina.NazivDiscip;
+                trazeniUcesnik.Klub = ucesnik.Klub;
+                trazeniUcesnik.Uloga = ucesnik.Uloga;
+                trazeniUcesnici.Add(trazeniUcesnik);
+            }
+
+
+
         }//DajPoID()
 
 
+        public IEnumerable<UcesnickiNalogBO> DajSveUcesnikePoDiscID( int disciplinaID)
+        {
 
+            DisciplinaBO disciplinaTrazena = new DisciplinaBO();
+            foreach (Disciplina disciplina in turnirskiEntities.Disciplina.Where(t => t.DisciplinaID == disciplinaID))
+            {
+
+                disciplinaTrazena.DiscNaziv = disciplina.NazivDiscip;
+                disciplinaTrazena.DiscID = disciplina.DisciplinaID;
+
+            }
+
+
+            List<UcesnickiNalogBO> trazeniUcesnici = new List<UcesnickiNalogBO>();
+            
+            foreach (UcesnickiNalog ucesnik in turnirskiEntities.UcesnickiNalog.Where(t => t.DisciplinaID == disciplinaID))
+            {
+                UcesnickiNalogBO trazeniUcesnik = new UcesnickiNalogBO();
+
+                trazeniUcesnik.ucesnikID = ucesnik.UcesnickiNalogID;
+                trazeniUcesnik.ImePrezime = ucesnik.ImePrezime;
+                trazeniUcesnik.Klub = ucesnik.Klub;
+                trazeniUcesnik.Uloga = ucesnik.Uloga;
+                trazeniUcesnici.Add(trazeniUcesnik);
+            }
+            return trazeniUcesnici;
+        }//DajSveUcesnikePoDiscID()
+        //_ListVerzija
+
+
+        //public IEnumerable<UcesnickiNalogBO> DajSveUcesnikePoDiscID_QueueVerzija(int disciplinaID)
+        //{
+
+        //    DisciplinaBO disciplinaTrazena = new DisciplinaBO();
+        //    foreach (Disciplina disciplina in turnirskiEntities.Disciplina.Where(t => t.DisciplinaID == disciplinaID))
+        //    {
+
+        //        disciplinaTrazena.DiscNaziv = disciplina.NazivDiscip;
+        //        disciplinaTrazena.DiscID = disciplina.DisciplinaID;
+
+        //    }
+
+        //    Queue<UcesnickiNalogBO> trazeniUcesnici = new Queue<UcesnickiNalogBO>();
+
+
+
+        //    UcesnickiNalogBO trazeniUcesnik = new UcesnickiNalogBO();
+        //    foreach (UcesnickiNalog ucesnik in turnirskiEntities.UcesnickiNalog.Where(t => t.DisciplinaID == disciplinaID))
+        //    {
+        //        trazeniUcesnik.ucesnikID = ucesnik.UcesnickiNalogID;
+        //        trazeniUcesnik.ImePrezime = ucesnik.ImePrezime;
+        //        trazeniUcesnik.Klub = ucesnik.Klub;
+        //        trazeniUcesnik.Uloga = ucesnik.Uloga;
+        //        trazeniUcesnici.Enqueue(trazeniUcesnik);
+        //    }
+        //    return trazeniUcesnici;
+        //}//DajSveUcesnikePoDiscID_QueueVerzija()
+
+
+
+        //public IEnumerable<UcesnickiNalogBO> DajSveUcesnikePoDiscID_NizVerzija(int disciplinaID)
+        //{
+
+        //    DisciplinaBO disciplinaTrazena = new DisciplinaBO();
+        //    foreach (Disciplina disciplina in turnirskiEntities.Disciplina.Where(t => t.DisciplinaID == disciplinaID))
+        //    {
+
+        //        disciplinaTrazena.DiscNaziv = disciplina.NazivDiscip;
+        //        disciplinaTrazena.DiscID = disciplina.DisciplinaID;
+
+        //    }
+
+        //    UcesnickiNalogBO[] trazeniUcesnici = new UcesnickiNalogBO[40];
+        //    //pretpostavimo da je max 40 ljudi po disciplini
+        //    //ubaci u verbalni opis,dugorocno zelis da ovo kupi neki podatak o broju ljudi itd.
+
+
+
+        //    UcesnickiNalogBO trazeniUcesnik = new UcesnickiNalogBO();
+        //    foreach (UcesnickiNalog ucesnik in turnirskiEntities.UcesnickiNalog.Where(t => t.DisciplinaID == disciplinaID))
+        //    {
+        //        trazeniUcesnik.ucesnikID = ucesnik.UcesnickiNalogID;
+        //        trazeniUcesnik.ImePrezime = ucesnik.ImePrezime;
+        //        trazeniUcesnik.Klub = ucesnik.Klub;
+        //        trazeniUcesnik.Uloga = ucesnik.Uloga;
+        //        trazeniUcesnici.Append(trazeniUcesnik);
+        //    }
+        //    return trazeniUcesnici;
+        //}//DajSveUcesnikePoDiscID_NizVerzija()
 
         public void Delete(DisciplinaBO disciplinaBo)
         {
@@ -142,10 +245,6 @@ namespace MacevalackaAplikacija.Models.EFR
         }//Update()
 
 
-
-
-
-
         public IEnumerable<UcesnickiNalogBO> GetAllUcesnici()
         {
             List<UcesnickiNalogBO> ucesnici = new List<UcesnickiNalogBO>();
@@ -155,5 +254,51 @@ namespace MacevalackaAplikacija.Models.EFR
             }
             return ucesnici;
         }//GetAll()
+
+        //public IEnumerable<UcesnickiNalogBO> DajSveUcesnikePoDiscID2(int disciplinaID)
+        //{
+
+
+        //    DisciplinaBO disciplinaTrazena = new DisciplinaBO();
+        //    foreach (Disciplina disciplina in turnirskiEntities.Disciplina.Where(t => t.DisciplinaID == disciplinaID))
+        //    {
+
+        //        disciplinaTrazena.DiscNaziv = disciplina.NazivDiscip;
+        //        disciplinaTrazena.DiscID = disciplina.DisciplinaID;
+
+        //    }
+
+        //    Queue<UcesnickiNalogBO> trazeniUcesnici = new Queue<UcesnickiNalogBO>();
+
+
+
+        //    UcesnickiNalogBO trazeniUcesnik = new UcesnickiNalogBO();
+        //    foreach (UcesnickiNalog ucesnik in turnirskiEntities.UcesnickiNalog.Where(t => t.DisciplinaID == disciplinaID))
+        //    {
+        //        trazeniUcesnik.ucesnikID = ucesnik.UcesnickiNalogID;
+        //        trazeniUcesnik.ImePrezime = ucesnik.ImePrezime;
+        //        trazeniUcesnik.Klub = ucesnik.Klub;
+        //        trazeniUcesnik.Uloga = ucesnik.Uloga;
+        //        trazeniUcesnici.Enqueue(trazeniUcesnik);
+        //    }
+        //    return trazeniUcesnici;
+        //}
+
+        public IEnumerable<UcesnickiNalogBO> GetAllUceWithBiggestDisc()
+        {
+            int disciplinaID = 1; //ovo resiti preko brojanja itd. posle ali zasad ne komplikuj
+            List<UcesnickiNalogBO> ucesnici = new List<UcesnickiNalogBO>();
+            foreach (UcesnickiNalog ucesnik in turnirskiEntities.UcesnickiNalog.Where(t => t.DisciplinaID == disciplinaID))
+            {
+                UcesnickiNalogBO ucesnikBo = new UcesnickiNalogBO();
+                ucesnikBo.ucesnikID = ucesnik.UcesnickiNalogID;
+                ucesnikBo.ImePrezime = ucesnik.ImePrezime;
+                ucesnikBo.Uloga = ucesnik.Uloga;
+                ucesnikBo.Klub = ucesnik.Klub;
+                //  ucesnikBo.Disciplina.DiscNaziv = new DisciplinaBO() { DiscNaziv = ucesnik.Disciplina. , DiscID = ucesnik.Disciplina. };
+                ucesnici.Add(ucesnikBo);
+            }
+            return ucesnici;
+        }
     }
 }

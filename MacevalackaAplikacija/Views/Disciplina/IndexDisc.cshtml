@@ -25,12 +25,20 @@
 <p> @Html.ActionLink("Nazad na start", "Index", "Home")</p>
 <br />
 
+<br />
+<p> @Html.ActionLink("idi na pogled u kome testiramo partial view", "TestPogled", "Disciplina")</p>
+<br />
 
 
-@*<label>Odabrati ispis ucesnika po kojoj disciplini</label>
 
-@Html.DropDownListFor(model => model., new SelectList(ViewBag.Discipline, "DiscID", "DiscNaziv"), "Selektuj disciplinu..", new { @class = "form-control" })
-*@
+<br />
+<p> @Html.ActionLink("prikazi mi listu ucesnika najvece discipline", "ListaUcesnikaNajveceDiscipline", "Shared") </p>
+<br />
+
+
+@{Html.RenderAction("dajListuNajveceDiscipline", "Disciplina", new { id = 0 });}
+
+
 
 
 <div>
@@ -59,8 +67,8 @@
 
 <div class="row">
 
-    <div class="col-md-3" id="smerovi">
-        <label class="control-label">Predmeti</label>
+    <div class="col-md-3" id="Discipline">
+        <label class="control-label">Odaberite disciplinu za prikaz ucesnika</label>
         <div>
             @Html.DropDownList(
                 "Discipline",
@@ -98,8 +106,6 @@
         }
     }
 
-
-
     function OnSelectedDisciplina(disciplina) {
 
         var idDiscipline = disciplina;
@@ -108,7 +114,7 @@
             idDiscipline = 0;
         }
         $.ajax({
-            url: '@Url.Action("DajUcesnikePoDisciplini", "ListaUcesnika")',
+            url: '@Url.Action("DajUcesnikePoDisciplini", "Disciplina")',
             data: { id: idDiscipline },
             success:   function(result) {
                 $('#Discipline').html(result);
