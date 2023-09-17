@@ -34,30 +34,20 @@
                 @Html.EditorFor(model => model.Klub, new { htmlAttributes = new { @class = "form-control" } })
                 <br />
                 <label>Turnirska uloga:</label>
-                @*
-        ova varijanta radi,a ovu dropdown listu pokusaj da stavis da sljaka sa select list
-        ,,borac'' ili ,,sudija''
-        @Html.EditorFor(model => model.Uloga, new { htmlAttributes = new { @class = "form-control" } })
-        napravi viewbag u kontroleru ali raskaceno iz baze
-
-        ako ne samo vrati na staro)*@
+            
                 @Html.EditorFor(model => model.Uloga, new { htmlAttributes = new { @class = "form-control" } })
 
-                @* @Html.DropDownListFor(model => model.Disciplina.DiscID, new SelectList( "borac", "sudija"))*@
-                <br />
+                 <br />
                 <label>Disciplina:</label>
 
                 @Html.DropDownListFor(model => model.Disciplina.DiscID, new SelectList(ViewBag.Discipline, "DiscID", "DiscNaziv"), "Selektuj disciplinu..", new { @class = "form-control" })
-                @*@Html.DropDownList(model => model.Disciplina.DiscNaziv, new SelectList(ViewBag.Discipline, "DiscID", "DiscNaziv"), "Selektuj disciplinu", new { @class = "form-control" })*@
-
+                
 
                 <br />
                 <label>Faza Takmicenja:</label>
 
                 @Html.DropDownListFor(model => model.faza.FazaTakmicenjaID, new SelectList(ViewBag.Faze, "FazaTakmicenjaID", "NazivFazeTakmicenja"), "Selektuj fazu..", new { @class = "form-control" })
 
-
-                @*@Html.DropDownListFor(model => model.faza.NazivFazeTakmicenja, new SelectList(ViewBag.Faze, "FazaTakmicenjaID", "NazivFazeTakmicenja"), "Selektuj disciplinu", new { @class = "form-control" })*@
 
 
                 <br />

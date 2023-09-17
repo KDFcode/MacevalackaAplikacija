@@ -323,16 +323,12 @@
     <Content Include="Views\Shared\AdminLayoutPage1.cshtml" />
     <Content Include="Views\Shared\ViewPage1.cshtml" />
     <Content Include="Views\Shared\ListaUcesnika.cshtml" />
-    <Content Include="Views\Disciplina\ContentPage1.cshtml" />
-    <Content Include="Views\Disciplina\DropdownDiscUce.cshtml" />
     <Content Include="Views\Disciplina\ListaUcesnikaNajveceDiscipline.cshtml" />
     <Content Include="Views\Shared\ListaUcesnikaNajveceDiscipline.cshtml" />
-    <Content Include="Views\Disciplina\TestPogled.cshtml" />
     <Content Include="Views\Shared\PartialPogled.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\gbyy\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

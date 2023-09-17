@@ -75,13 +75,7 @@ namespace MacevalackaAplikacija.Controllers
         }//CreateDisc()
 
 
-        public ActionResult DropdownPogled()
-        {
-           @ViewBag.Discipline = disciplinaRepository.GetAll();
-
-           // return View();
-            return View("DropdownDiscUce");
-        }//DropdownPogled()
+       
 
         [Authorize(Roles = "organizator")]
 
@@ -144,22 +138,10 @@ namespace MacevalackaAplikacija.Controllers
         
 
 
-        //ovo resi lepo pa na dalje ko po primeru
         public ActionResult dajListuNajveceDiscipline()
         {
-            //uzmi ovo i pogledaj drugi put detaljnije do kraja
-
             return PartialView("ListaUcesnikaNajveceDiscipline", disciplinaRepository.GetAllUceWithBiggestDisc());
-
         }
-
-
-
-
-
-
-
-
 
     }
 }

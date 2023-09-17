@@ -25,15 +25,7 @@
 <p> @Html.ActionLink("Nazad na start", "Index", "Home")</p>
 <br />
 
-@*<br />
-    <p> @Html.ActionLink("idi na pogled u kome testiramo partial view", "TestPogled", "Disciplina")</p>
-    <br />*@
 
-@*vidi sta s ova dva,da li mi treba da izbacim kompletno?*@
-
-@*<br />
-    <p> @Html.ActionLink("prikazi mi listu ucesnika najvece discipline", "ListaUcesnikaNajveceDiscipline", "Shared") </p>
-    <br />*@
 
 
 @{Html.RenderAction("dajListuNajveceDiscipline", "Disciplina", new { id = 0 });}
@@ -81,15 +73,7 @@
                      })
         </div>
     </div>
-</div>  @*sredi ovo tako da kad ti kliknes ne pobegne opcija daljeg izbora*@
-
-@*
-    <div id="Discipline">
-
-        @{Html.RenderAction("DajUcesnikePoDisciplini", "Disciplina", new { id = 0 });}
-
-    </div>
-*@
+</div>  
 
 
 

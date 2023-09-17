@@ -42,29 +42,14 @@
                 @Html.EditorFor(bo => bo.Disciplina, new { htmlAttributes = new { @class = "form-control" } })
 
 
-                @*ako stignes ubaci ove neke dropdown opcije,ako ne izbrisi sve ovo iz komentara visak
-                i to radi dugorocno*@
-
-
-                @* iskoristi identicnu dropdown listu,isto kao kod createUce,manje opcija,ali trebalo bi da ne puca i  ne zeza tako
-
-        @Html.DropDownListFor(model => model.Disciplina.DiscID, new SelectList(ViewBag.Discipline, "DiscID", "DiscNaziv"), "Selektuj disciplinu..", new { @class = "form-control" })
-
-
-            ako jelte pokusam da tu stavim i .DiscNaziv ili id,isto i za fazu puca program
-        uvek se na kraju desi da ovo zeza,
-        da li je problem mozda do kompjutera?
-        (znaci createUce sad radi lepo,moze se odabere lepo koja disciplina/faza i da ne pravi novu,ali edit to i dalje radi
-        )
-                *@
+               
                 @Html.ValidationMessageFor(bo => bo.Disciplina, "", new { @class = "text-danger" })
                 <br />
                 <label class="control-label">Faza</label>
                 @Html.EditorFor(bo => bo.faza, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(bo => bo.faza, "", new { @class = "text-danger" })
 
-                @*@Html.DropDownListFor(model => model.faza.FazaTakmicenjaID, new SelectList(ViewBag.Faze, "FazaTakmicenjaID", "NazivFazeTakmicenja"), "Selektuj disciplinu..", new { @class = "form-control" })
-*@
+               
             </div>
         </div>
     </div>
@@ -79,10 +64,6 @@
 }
 <br />
 
-        Html.RenderAction("DajUcesnikePoID", "Ucesnicki", Model.ucesnickiID);
-    }
-*@
-@*3939 screenshot kaze sto ovo ne radi*@
 
 
 
