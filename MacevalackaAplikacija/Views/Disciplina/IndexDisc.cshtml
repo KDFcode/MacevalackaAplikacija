@@ -25,15 +25,15 @@
 <p> @Html.ActionLink("Nazad na start", "Index", "Home")</p>
 <br />
 
-<br />
-<p> @Html.ActionLink("idi na pogled u kome testiramo partial view", "TestPogled", "Disciplina")</p>
-<br />
+@*<br />
+    <p> @Html.ActionLink("idi na pogled u kome testiramo partial view", "TestPogled", "Disciplina")</p>
+    <br />*@
 
+@*vidi sta s ova dva,da li mi treba da izbacim kompletno?*@
 
-
-<br />
-<p> @Html.ActionLink("prikazi mi listu ucesnika najvece discipline", "ListaUcesnikaNajveceDiscipline", "Shared") </p>
-<br />
+@*<br />
+    <p> @Html.ActionLink("prikazi mi listu ucesnika najvece discipline", "ListaUcesnikaNajveceDiscipline", "Shared") </p>
+    <br />*@
 
 
 @{Html.RenderAction("dajListuNajveceDiscipline", "Disciplina", new { id = 0 });}
@@ -81,44 +81,46 @@
                      })
         </div>
     </div>
-</div>
+</div>  @*sredi ovo tako da kad ti kliknes ne pobegne opcija daljeg izbora*@
 
-<div id="Discipline">
+@*
+    <div id="Discipline">
 
-    @{Html.RenderAction("DajUcesnikePoDisciplini", "Disciplina", new { id = 0 });}
+        @{Html.RenderAction("DajUcesnikePoDisciplini", "Disciplina", new { id = 0 });}
 
-</div>
+    </div>
+*@
 
 
 
 <script>
-    function OnListItemClick(htmlItem, disciplina) {
-        $('a.list-group-item.active').removeClass('active');
-        $(htmlItem).addClass('active');
-        document.getElementById('detaljiDiscipline').style.visibility = "visible";
-        document.getElementById("detaljiDisciplineText").innerHTML =
-            "ID broj discipline: " + disciplina.DiscID + "<br>Naziv: " + disciplina.DiscNaziv;
-        document.getElementById('editButton').onclick = function () {
-            window.location.href = "../Disciplina/EditDisc/" + disciplina.DiscID;
-        }
-        document.getElementById('deleteButton').onclick = function () {
-            window.location.href = "../Disciplina/DeleteDisc/" + disciplina.DiscID;
-        }
-    }
-
-    function OnSelectedDisciplina(disciplina) {
-
-        var idDiscipline = disciplina;
-        if (idDiscipline === "")
-        {
-            idDiscipline = 0;
-        }
-        $.ajax({
-            url: '@Url.Action("DajUcesnikePoDisciplini", "Disciplina")',
-            data: { id: idDiscipline },
-            success:   function(result) {
-                $('#Discipline').html(result);
+        function OnListItemClick(htmlItem, disciplina) {
+            $('a.list-group-item.active').removeClass('active');
+            $(htmlItem).addClass('active');
+            document.getElementById('detaljiDiscipline').style.visibility = "visible";
+            document.getElementById("detaljiDisciplineText").innerHTML =
+                "ID broj discipline: " + disciplina.DiscID + "<br>Naziv: " + disciplina.DiscNaziv;
+            document.getElementById('editButton').onclick = function () {
+                window.location.href = "../Disciplina/EditDisc/" + disciplina.DiscID;
             }
-        });
-    }
+            document.getElementById('deleteButton').onclick = function () {
+                window.location.href = "../Disciplina/DeleteDisc/" + disciplina.DiscID;
+            }
+        }
+
+        function OnSelectedDisciplina(disciplina) {
+
+            var idDiscipline = disciplina;
+            if (idDiscipline === "")
+            {
+                idDiscipline = 0;
+            }
+            $.ajax({
+                url: '@Url.Action("DajUcesnikePoDisciplini", "Disciplina")',
+                data: { id: idDiscipline },
+                success:   function(result) {
+                    $('#Discipline').html(result);
+                }
+            });
+        }
 </script>

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MacevalackaAplikacija.Models.UcesnickiNalogBO>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New", "Create")*@   @*ovo izmeni da ne nestane onaj dropdown?a ovo mi ovde ne treba*@
 </p>
 <table class="table">
     <tr>
@@ -34,11 +34,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Klub)
         </td>
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
+        </td>*@
     </tr>
 }
 
