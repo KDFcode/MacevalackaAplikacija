@@ -15,7 +15,7 @@
 </p>
 <br />
 <p>
-    @Html.ActionLink("Pregled ucesnika", "IndexUce", "Ucesnicki")
+    @Html.ActionLink("Pregled učesnika", "IndexUce", "Ucesnicki")
 </p>
 <br />
 <p>
@@ -27,9 +27,9 @@
 
 
 
-
+@*
 @{Html.RenderAction("dajListuNajveceDiscipline", "Disciplina", new { id = 0 });}
-
+*@
 
 
 
@@ -53,6 +53,7 @@
     <label class="control-label">Detalji Discipline:</label>
     <p id="detaljiDisciplineText"></p>
     <input id="editButton" type="button" class="btn" value="Azuriraj" />
+    @* <input id="editButton" type="button" class="btn" value="Azuriraj" /> *@
     <input id="deleteButton" type="button" class="btn" value="Obrisi" />
 </div>
 
@@ -73,7 +74,7 @@
                      })
         </div>
     </div>
-</div>  
+</div>
 
 
 
